@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "./config/db.js"; // establish MongoDB connection
+import morgan from "morgan";
 
 import authRoutes from "./routes/auth.routes.js";
 import resumeRoutes from "./routes/resume.routes.js";
@@ -16,6 +17,7 @@ app.use(
     credentials: true,
   })
 );
+app.use(morgan("dev"))
 
 // ⚠️ Stripe webhook MUST be mounted before express.json()
 // (raw body required for signature verification)
