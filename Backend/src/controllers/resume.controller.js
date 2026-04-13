@@ -4,6 +4,10 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 import { rewriteResume, calculateATSScore } from "../services/gemini.service.js";
+<<<<<<< HEAD
+=======
+import { generatePDF } from "../services/puppeteer.service.js";
+>>>>>>> 4b9da61 (main)
 
 // POST /api/resume  — create blank resume
 export const createResume = async (req, res) => {
@@ -159,3 +163,65 @@ export const rewriteResumeHandler = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+<<<<<<< HEAD
+=======
+
+// POST /api/resume/:id/export  — generate and stream PDF
+export const exportResumePDF = async (req, res) => {
+  try {
+    const resume = await Resume.findOne({
+      _id: req.params.id,
+      userId: req.user._id,
+    });
+    if (!resume) return res.status(404).json({ message: "Resume not found" });
+
+    if (!resume.rewrittenData || !resume.rewrittenData.name) {
+      return res.status(400).json({
+        message: "Resume has not been rewritten yet. Run /rewrite first.",
+      });
+    }
+
+    // Allow caller to override the template via query or body
+    const template =
+      req.body?.template ||
+      req.query?.template ||
+      resume.template ||
+      "classic";
+
+    const validTemplates = ["classic", "modern", "minimal"];
+    if (!validTemplates.includes(template)) {
+      return res.status(400).json({
+        message: `Invalid template. Choose one of: ${validTemplates.join(", ")}.`,
+      });
+    }
+
+    // Persist the chosen template on the resume document
+    if (template !== resume.template) {
+      resume.template = template;
+    }
+    resume.status = "exported";
+    await resume.save();
+
+    // Generate PDF buffer via Puppeteer
+    const pdfBuffer = await generatePDF(resume.rewrittenData, template);
+
+    // Build a safe filename
+    const firstName = (resume.rewrittenData.name || "resume")
+      .split(" ")[0]
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "");
+    const filename = `${firstName}_resume_${template}.pdf`;
+
+    res.set({
+      "Content-Type": "application/pdf",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Length": pdfBuffer.length,
+    });
+
+    res.send(pdfBuffer);
+  } catch (err) {
+    console.error("PDF export error:", err);
+    res.status(500).json({ message: err.message });
+  }
+};
+>>>>>>> 4b9da61 (main)

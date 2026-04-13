@@ -10,7 +10,12 @@ import {
   deleteResume,
   uploadRawText,
   uploadPDF,
+<<<<<<< HEAD
   rewriteResumeHandler
+=======
+  rewriteResumeHandler,
+  exportResumePDF
+>>>>>>> 4b9da61 (main)
 } from "../controllers/resume.controller.js";
 
 const router = Router();
@@ -26,5 +31,9 @@ router.delete("/:id", deleteResume);
 router.post("/:id/upload-raw", uploadRawText);
 router.post("/:id/upload-pdf", uploadPDFMiddleware, uploadPDF);
 router.post("/:id/rewrite", rewriteResumeHandler);
+<<<<<<< HEAD
+=======
+router.post("/:id/export", exportResumePDF);
+>>>>>>> 4b9da61 (main)
 
 export default router;
