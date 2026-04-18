@@ -5,13 +5,13 @@ export default function LoadingSpinner({ size = 28, label = "" }) {
         style={{
           width: size,
           height: size,
-          borderRadius: "50%",
+          borderRadius: "60%",
           border: `3px solid var(--surface-2)`,
           borderTopColor: "var(--primary)",
           animation: "spin 0.75s linear infinite",
         }}
       />
-      {label && <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>{label}</p>}
+      {label && <p style={{ color: "var(--text-muted)", fontSize: "0.84rem" }}>{label}</p>}
     </div>
   );
 }
