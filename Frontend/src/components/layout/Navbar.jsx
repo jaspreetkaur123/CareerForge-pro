@@ -33,7 +33,7 @@ export default function Navbar() {
             fontSize: 16, fontWeight: 800, color: "#fff",
           }}>C</div>
           <span style={{ fontFamily: "Sora, sans-serif", fontWeight: 700, fontSize: "1.1rem", letterSpacing: "-0.02em" }}>
-            Career<span className="gradient-text">Forge</span>
+            Career<span className="gradient-text">Forge-Pro</span>
           </span>
         </Link>
 
@@ -49,9 +49,9 @@ export default function Navbar() {
               <Link to="/pricing" style={{ color: "var(--text-secondary)", padding: "6px 14px", fontSize: "0.88rem", transition: "color 0.2s" }}
                 onMouseEnter={e => e.target.style.color = "var(--text-primary)"}
                 onMouseLeave={e => e.target.style.color = "var(--text-secondary)"}>
-                Pricing
+                Pricing Plans
               </Link>
-              <Link to="/login"><button className="btn-ghost" style={{ padding: "7px 18px", fontSize: "0.88rem" }}>Sign In</button></Link>
+              <Link to="/login"><button className="btn-ghost" style={{ padding: "7px 18px", fontSize: "0.88rem" }}>Login In</button></Link>
               <Link to="/register"><button className="btn-primary" style={{ padding: "7px 18px", fontSize: "0.88rem" }}>Get Started</button></Link>
             </>
           ) : (
@@ -60,7 +60,7 @@ export default function Navbar() {
               <NavLink to="/builder" label="New Resume" active={isActive("/builder")} />
               {user.plan === "free" && (
                 <Link to="/pricing">
-                  <span className="badge badge-warn" style={{ cursor: "pointer" }}>⚡ Upgrade</span>
+                  <span className="badge badge-warn" style={{ cursor: "pointer" }}>⚡ Upgrade Plan</span>
                 </Link>
               )}
               {user.plan === "pro" && <span className="badge badge-accent">Pro</span>}
