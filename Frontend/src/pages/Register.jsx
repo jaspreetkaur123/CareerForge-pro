@@ -46,7 +46,7 @@ export default function Register() {
           }}>C</div>
           <h1 style={{ fontSize: "1.7rem", marginBottom: 6 }}>Create your account</h1>
           <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem" }}>
-            Start building ATS-proof resumes for free
+            Build ATS-proof resumes for free
           </p>
         </div>
 
